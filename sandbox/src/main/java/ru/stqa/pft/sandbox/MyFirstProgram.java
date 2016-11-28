@@ -3,18 +3,14 @@ package ru.stqa.pft.sandbox;
 public class MyFirstProgram {
 	public static void main(String[] args) {
 		hello("people");
-      double s = 5;
-      double p = 6;
-      System.out.println(area(s,p));
+      Square s = new Square(5);
+      Rectangle r = new Rectangle(2,3);
+      System.out.println(s.area());
+      System.out.println(r.area());
    }
 
 	public static void hello(String somebody) {
       System.out.println("Hello, " + somebody + "!");
    }
-   public static double area (double a) {
-      return a * a;
-   }
-   public static double area (double l, double k) {
-      return l * k;
-   }
+
 }
