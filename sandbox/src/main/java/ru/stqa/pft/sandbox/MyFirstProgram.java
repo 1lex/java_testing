@@ -7,10 +7,12 @@ public class MyFirstProgram {
       Rectangle r = new Rectangle(2,3);
       System.out.println(s.area());
       System.out.println(r.area());
+
    }
 
 	public static void hello(String somebody) {
       System.out.println("Hello, " + somebody + "!");
    }
+
 
 }
