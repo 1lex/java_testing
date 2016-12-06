@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import ru.stqa.pft.addressbook.ContactData;
 
 public class ContactCreationTests {
     FirefoxDriver wd;
@@ -31,7 +32,7 @@ public class ContactCreationTests {
     @Test
     public void ContactCreationTests() {
         initContactCreation();
-        fillContactForm("testName1", "testName2", "testNickName", "Apple", "123");
+        fillContactForm(new ContactData("testName1", "testName2", "testNickName", "Apple", "123"));
         submitContactCreation();
         returnToHomePage();
     }
@@ -44,22 +45,22 @@ public class ContactCreationTests {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    private void fillContactForm(String firstName, String lastName, String nickname, String company, String notes) {
+    private void fillContactForm(ContactData contactData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
-        wd.findElement(By.name("firstname")).sendKeys(firstName);
+        wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
         wd.findElement(By.name("lastname")).click();
         wd.findElement(By.name("lastname")).clear();
-        wd.findElement(By.name("lastname")).sendKeys(lastName);
+        wd.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
         wd.findElement(By.name("nickname")).click();
         wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys(nickname);
+        wd.findElement(By.name("nickname")).sendKeys(contactData.getNickname());
         wd.findElement(By.name("company")).click();
         wd.findElement(By.name("company")).clear();
-        wd.findElement(By.name("company")).sendKeys(company);
+        wd.findElement(By.name("company")).sendKeys(contactData.getCompany());
         wd.findElement(By.name("notes")).click();
         wd.findElement(By.name("notes")).clear();
-        wd.findElement(By.name("notes")).sendKeys(notes);
+        wd.findElement(By.name("notes")).sendKeys(contactData.getNotes());
     }
 
     private void initContactCreation() {
