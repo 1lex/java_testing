@@ -31,4 +31,8 @@ public class HelperBase {
          return false;
       }
    }
+
+   public void submitOnWindow() {
+      wd.switchTo().alert().accept();
+   }
 }

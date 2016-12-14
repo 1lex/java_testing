@@ -18,4 +18,8 @@ public class SessionHelper extends HelperBase {
       type(By.name("pass"), password);
       click(By.xpath("//form[@id='LoginForm']/input[3]"));
    }
+
+   public void returnHome() {
+      click(By.linkText("home"));
+   }
 }
