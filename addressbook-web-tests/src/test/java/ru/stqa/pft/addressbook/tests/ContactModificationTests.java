@@ -10,9 +10,12 @@ public class ContactModificationTests extends TestBase {
 
    @Test
    public void testContactModification() {
+      if (!app.getContactHelper().isThereAContact()) {
+         app.getContactHelper().createContact(new ContactData("testName1", "testName2", "testNickName", "Apple", "123", "test1"));
+      }
       app.getContactHelper().selectContact();
       app.getContactHelper().initContactModification();
-      app.getContactHelper().fillContactForm(new ContactData("testName1", "testName2", "testNickName", "Apple", "123", null), false);
+      app.getContactHelper().fillContactForm(new ContactData("testName1_new", "testName2_new", "testNickName_new", "Apple_new", "123_new", null), false);
       app.getContactHelper().submitContactModification();
       app.getNavigationHelper().goToHomePage();
    }
