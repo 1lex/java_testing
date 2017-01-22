@@ -13,6 +13,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,6 +64,10 @@ public class ContactHelper extends HelperBase {
 
    public void initContactModificationById(int id) {
       click(By.xpath("//a[@href='edit.php?id=" + id + "']"));
+   }
+
+   public void details(int id) {
+      click(By.xpath("//a[@href='view.php?id=" + id + "']"));
    }
 
    public void submitContactModification() {
@@ -146,4 +151,10 @@ public class ContactHelper extends HelperBase {
       return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName)
               .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
    }
+
+   public String getDetailsData () {
+      return wd.findElement(By.cssSelector("div[id='content']")).getText();
+   }
+
+
 }
