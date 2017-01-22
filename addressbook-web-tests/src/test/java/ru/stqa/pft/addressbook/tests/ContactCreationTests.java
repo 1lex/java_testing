@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class ContactCreationTests extends TestBase {
    public void testContactCreation() {
       Contacts before = app.contact().all();
       //ContactData contact = new ContactData("testName1", "testName2", "testNickName", "Apple", "123", "test1");
-      ContactData contact = new ContactData().withFirstName("testName1").withLastName("testName2").withGroup("test1");
+      File photo = new File("src/test/resources/1.jpg");
+      ContactData contact = new ContactData().withFirstName("testName1").withLastName("testName2").withPhoto(photo);
       app.contact().create(contact);
       app.goTo().homePage();
       Contacts after = app.contact().all();

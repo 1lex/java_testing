@@ -31,11 +31,15 @@ public class ContactHelper extends HelperBase {
    public void fillContactForm(ContactData contactData, boolean creation) {
       type(By.name("firstname"), contactData.getFirstName());
       type(By.name("lastname"), contactData.getLastName());
-      type(By.name("nickname"), contactData.getNickname());
-      type(By.name("company"), contactData.getCompany());
-      type(By.name("notes"), contactData.getNotes());
+      attach(By.name("photo"), contactData.getPhoto());
+      //type(By.name("nickname"), contactData.getNickname());
+      //type(By.name("company"), contactData.getCompany());
+      //type(By.name("notes"), contactData.getNotes());
+
       if (creation) {
-         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+         if (contactData.getGroup() != null) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+         }
       } else {
          Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
