@@ -28,7 +28,8 @@ public class ContactDetailsTests extends TestBase {
       ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
       String namesAndAddress = String.join("\n", mergeNames(contactInfoFromEditForm),
               mergeAddress(contactInfoFromEditForm));
-      String mergedAll = String.join("\n\n",namesAndAddress, mergePhones(contactInfoFromEditForm), mergeEmails(contactInfoFromEditForm));
+      String mergedNamesAddressPhones = String.join("\n",namesAndAddress, mergePhones(contactInfoFromEditForm));
+      String mergedAll = String.join("\n\n",mergedNamesAddressPhones, mergeEmails(contactInfoFromEditForm));
       app.goTo().homePage();
       app.contact().details(contact.getId());
       assertThat(app.contact().getDetailsData(), equalTo(mergeAll(contactInfoFromEditForm)));
@@ -50,13 +51,22 @@ public class ContactDetailsTests extends TestBase {
       }
       result = result + "\n" + "";
       if (!contact.getHomePhone().equals("")) {
-         result += "\n" + "H: " + contact.getHomePhone();
+         String modifiedHome = "H: " + contact.getHomePhone();
+         if (modifiedHome.length() > 3) {
+            result += "\n" + modifiedHome;
+         }
       }
       if (!contact.getMobilePhone().equals("")) {
-         result += "\n" + "M: " + contact.getMobilePhone();
+         String modifiedMobile = "M: " + contact.getMobilePhone();
+         if (modifiedMobile.length() > 3) {
+            result += "\n" + modifiedMobile;
+         }
       }
       if (!contact.getWorkPhone().equals("")) {
-         result += "\n" + "W: " + contact.getWorkPhone();
+         String modifiedWork = "W: " + contact.getWorkPhone();
+         if (modifiedWork.length() > 3) {
+            result += "\n" + modifiedWork;
+         }
       }
       result = result + "" + "\n";
       if (!contact.getEmail().equals("")) {
@@ -100,13 +110,22 @@ public class ContactDetailsTests extends TestBase {
       String mobile = "";
       String work = "";
       if (!contact.getHomePhone().equals("")) {
-         home = "H: " + contact.getHomePhone() + "\n";
+         home = "\nH: " + contact.getHomePhone();
+         if (home.length() == 3) {
+            home = null;
+         }
       }
       if (!contact.getMobilePhone().equals("")) {
-         mobile = "M: " + contact.getMobilePhone() + "\n";
+         mobile = "\nM: " + contact.getMobilePhone();
+         if (mobile.length() == 3) {
+            mobile = null;
+         }
       }
       if (!contact.getWorkPhone().equals("")) {
-         work = "W: " + contact.getWorkPhone();
+         work = "\nW: " + contact.getWorkPhone();
+         if (work.length() == 3) {
+            work = null;
+         }
       }
 
 /*      String tmp = "\n";
@@ -121,7 +140,7 @@ public class ContactDetailsTests extends TestBase {
               .collect(Collectors.joining("W: "));
       return String.join(mobile, home, work);*/
 
-      return String.join(home, mobile, work);
+      return String.join("", home, mobile, work);
    }
 }
 
