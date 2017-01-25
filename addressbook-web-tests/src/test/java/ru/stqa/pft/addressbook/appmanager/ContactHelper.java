@@ -1,20 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
-import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,9 +33,9 @@ public class ContactHelper extends HelperBase {
       //type(By.name("notes"), contactData.getNotes());
 
       if (creation) {
-         if (contactData.getGroup() != null) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-         }
+//         if (contactData.getGroup() != null) {
+//            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+//         }
       } else {
          Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
@@ -162,4 +157,24 @@ public class ContactHelper extends HelperBase {
    }
 
 
+   public void moveToGroup(ContactData movingContact, GroupData selectedGroup) {
+      selectContactById(movingContact.getId());
+      selectToGroup(selectedGroup);
+      click(By.name("add"));
+   }
+
+   private void selectToGroup(GroupData selectedGroup) {
+      new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(selectedGroup.getName());
+   }
+
+
+   public void deleteContactFromGroup(ContactData movingContact, GroupData selectedGroup) {
+      selectGroupFilter(selectedGroup);
+      selectContactById(movingContact.getId());
+      click(By.name("remove"));
+   }
+
+   private void selectGroupFilter(GroupData selectedGroup) {
+      new Select(wd.findElement(By.name("group"))).selectByVisibleText(selectedGroup.getName());
+   }
 }
